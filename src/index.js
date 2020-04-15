@@ -1,10 +1,13 @@
 const F = require('./File')
 
-async function searchAndTransform (path = `${process.cwd()}/gettext_po_sample_file.po`){
+async function searchAndTransform (print =true , path = `./gettext_po_sample_file.po`){
   const file = await F.rf(path)
   const fileString = await file.toString()
   const transformed = transform(fileString)
-  // console.log(transformed)
+  if (print) {
+    console.log(transformed)
+  }
+
   return transformed
 }
 

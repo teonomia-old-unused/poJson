@@ -12,7 +12,7 @@ async function searchAndTransform (print =true , path = `./gettext_po_sample_fil
   return transformed
 }
 
-function transform (string){
+function po2poJson (string){
   const splitedPo = string.split('\n\n')
 
   function breakLine (string) {
@@ -68,7 +68,7 @@ function html2poJson (string) {
 }
 
 module.exports = {
-  transform,
+  po2poJson,
   searchAndTransform,
   html2poJson
 }

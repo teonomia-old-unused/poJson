@@ -2,5 +2,8 @@
   "name": "po_json",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "GPL"
+  "license": "GPL",
+  "dependencies": {
+    "node-html-parser": "^1.2.16"
+  }
 }

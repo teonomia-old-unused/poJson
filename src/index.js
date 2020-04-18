@@ -68,7 +68,7 @@ function html2poJson (string) {
 
 function poJson2po (string) {
   function sanitizeLineBreak(text = '') {
-    const sanitized = text.replace(/\n/g, '\\n"\n"')
+    const sanitized = text//.replace(/\n/g, '\\n"\n"')
     return sanitized.replace()
   }
   const poJson = JSON.parse(string)

@@ -9,6 +9,7 @@ describe('PO para JSON', () => {
     expect.assertions(5)
     const poPoBuff = await F.rf(cwd('data.test/po.po')); const poPo = poPoBuff.toString()
     const returnedPoJson = poJson.po2poJson(poPo)
+    F.wf(cwd('dataProcessed/test/po2poJson.json'),JSON.stringify(returnedPoJson))
 
     expect(returnedPoJson.body[0].id).toBeDefined()
     expect(returnedPoJson.body[0].id[0]).toBe('TODO List')
@@ -24,8 +25,20 @@ describe('PoJSON para PO', () => {
     expect.assertions(1)
     const poJsonBuff = await F.rf(cwd('data.test/poJson.json')); const poJsonS = poJsonBuff.toString()
     const returnedPo = poJson.poJson2po(poJsonS)
-
+    F.wf(cwd('dataProcessed/test/poJson2po.po'),returnedPo)
     const splitedReturnedPo = returnedPo.split('\n\n')
     expect(splitedReturnedPo[1]).toBe('#. Please don\'t change the name of the application\n#: /app/modules/views\nmsgid "TODO List"\nmsgmsg "Lista TODO"')
+  })
+
+  describe('HTML para PoJSON', () => {
+    jest.resetModules()
+    it('modelo da estrutura do po', async () => {
+      expect.assertions(1)
+      const poJsonBuff = await F.rf(cwd('data.test/poJson.json')); const poJsonS = poJsonBuff.toString()
+      const returnedPo = poJson.poJson2po(poJsonS)
+      F.wf(cwd('dataProcessed/test/poJson2po.po'),returnedPo)
+      const splitedReturnedPo = returnedPo.split('\n\n')
+      expect(splitedReturnedPo[1]).toBe('#. Please don\'t change the name of the application\n#: /app/modules/views\nmsgid "TODO List"\nmsgmsg "Lista TODO"')
+    })
   })
 })

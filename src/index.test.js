@@ -32,13 +32,18 @@ describe('PoJSON para PO', () => {
 
   describe('HTML para PoJSON', () => {
     jest.resetModules()
-    it('modelo da estrutura do po', async () => {
-      expect.assertions(1)
-      const poJsonBuff = await F.rf(cwd('data.test/poJson.json')); const poJsonS = poJsonBuff.toString()
-      const returnedPo = poJson.poJson2po(poJsonS)
-      F.wf(cwd('dataProcessed/test/poJson2po.po'),returnedPo)
-      const splitedReturnedPo = returnedPo.split('\n\n')
-      expect(splitedReturnedPo[1]).toBe('#. Please don\'t change the name of the application\n#: /app/modules/views\nmsgid "TODO List"\nmsgmsg "Lista TODO"')
+    it('modelo da estrutura do poJson', async () => {
+      expect.assertions(4)
+      const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
+      const returnedHtmlString = poJson.html2poJson(htmlS)
+      F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedHtmlString)
+      const returnedHtmlJson = JSON.parse(returnedHtmlString)
+
+      // console.log(returnedHtmlJson.body[0].id)
+      expect(returnedHtmlJson.body[0].id).toBeDefined()
+      expect(returnedHtmlJson.body[0].str).toBeDefined()
+      expect(returnedHtmlJson.body[0].comment).toBeDefined()
+      expect(returnedHtmlJson.body[0].comment).toMatch(/^##HTML:/g)
     })
   })
 })

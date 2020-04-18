@@ -1,10 +1,14 @@
 # poJson
+This Module transform a file .po into .json following the poJson pathern.
+It also transform .po to html.
+If you want to transform **.JSON to .PO**, **.PO to .JSON**, **.PO to .HTML**, **.HTML to .PO** or eaven **HTML to poJson pathern**, this module can help you.
+
 This project was made to help a translation community.
 It pretends to provide:
 - easily handling translation files
 - easily transform data to many type of files
 
-Currently **this module does not support plural form**.
+Currently **this module does not support .po plural form**.
 noted as:
 ```po
 msgid_plural "%d files removed"
@@ -12,9 +16,10 @@ msgstr[0] ""
 msgstr[1] ""
 ```
 This module will not suport files that contains this .po feature.
+
 Below are an easy table to know the types of files that this module supports
 
-## features Implemented:
+## Features Implemented:
 
 | From this | To this   | Implemented |
 |-----------|:---------:|------------:|
@@ -35,7 +40,7 @@ Below are an easy table to know the types of files that this module supports
 | msgstr[]        |  No      |
 | msgid_plural    |  No      |
 
-## Json pathern
+# poJson pathern
 the poJson pather is simple:
 ```js
 {
@@ -46,7 +51,8 @@ the poJson pather is simple:
       str: [""], // array of string. the msgstr in .po file
       comment: "" // string. the comments in .po file
       /**
-       * If the Json file is transformed from HTML, the comment will contain only HTML informations
+       * If the Json file is transformed from HTML, the
+       * comment will contain only HTML informations
     }
   ]
 }
@@ -60,3 +66,51 @@ poJson.poJson2po('<Your File String>') // Transform .json to .po
 poJson.html2poJson('<Your File String>') // transform .html to .json
 poJson.poJson2html('<Your File String>') // transform .json to html
 ```
+
+## html to json:
+You need to provide a parameter with this aspects:
+- html **string**.
+- single html node object.
+- the childs need to have the text to each msgid
+
+Each child node will be a msgid, then, this examples will ilustrate the behavior with css selector:
+#### Simple childs
+```html
+<article>
+  <p>texto1</p>
+  <p>texto2</p>
+</article >
+```
+this html structure above will return an object like below:
+```js
+{
+  haeder: ...,
+  body: [
+    {id:'texto1', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'},
+    {id:'texto2', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'}
+    ]
+}
+```
+
+#### Complex childs
+
+this is an other example to understand the behavior with more HTML childs:
+```html
+<article>
+  <p>texto1 <span>span text</span></p>
+  <p>texto2</p>
+</article >
+```
+this html structure above will return an object like below:
+```js
+{
+  haeder: ...,
+  body: [
+    {id:'texto1 span text', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'},
+    {id:'texto2', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'}
+    ]
+}
+```
+As you can see in this example, the function will simplify your html structure.
+Then, if you transform this json into a html, the element span will be no more in your html structure.
+This file translation behave like this to reduce html to an object that match the simple structure of a .po file.

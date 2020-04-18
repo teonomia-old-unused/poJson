@@ -39,12 +39,12 @@ function po2poJson (string) {
 function html2poJson (string) {
   // console.log(string)
   const content = HTML.parse(string)
-  console.log(content.childNodes[0].rawText)
+  // console.log(content.childNodes[0].rawText)
 
   const body = content.childNodes[0].childNodes.map(node => {
     return {
       id: node.rawText,
-      msg: '',
+      str: '',
       comment: `##HTML: <${node.tagName} ${node.rawAttrs}>{{#c}}</${node.tagName}>` }
     }
   )

@@ -1,10 +1,15 @@
 # poJson
 This Module transform a file .po into .json following the poJson pathern.
-It also transform .po to html.
+It also transform .po to .html.
 If you want to transform **.JSON to .PO**, **.PO to .JSON**, **.PO to .HTML**, **.HTML to .PO** or eaven **HTML to poJson pathern**, this module can help you.
 
-This project was made to help a translation community.
-It pretends to provide:
+----
+
+#### why?
+This project was made to create a software for a translation open community, and a file pathern well used to open-source projects translation is .po, seeking other tools to help the translation (other softwares, sites, packages and integrations) we created this module and stablished the poJson pathern.
+
+#### what we want?
+This module pretends to provide:
 - easily handling translation files
 - easily transform data to many type of files
 

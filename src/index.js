@@ -1,7 +1,8 @@
 const F = require('./File')
 const HTML = require('node-html-parser')
+const { rmStrictQuotationLineBreak, rmQuotationLineBreak } = require('./utils')
 
-async function searchAndTransform (print =true , path = `./gettext_po_sample_file.po`){
+async function searchAndTransform (print =true , path = `./gettext_po_sample_file.po`) {
   const file = await F.rf(path)
   const fileString = await file.toString()
   const transformed = transform(fileString)
@@ -12,7 +13,7 @@ async function searchAndTransform (print =true , path = `./gettext_po_sample_fil
   return transformed
 }
 
-function po2poJson (string){
+function po2poJson (string) {
   const splitedPo = string.split('\n\n')
 
   function breakLine (string) {
@@ -26,14 +27,12 @@ function po2poJson (string){
       const comment = splited.shift()
       const msg = splited[0].split('msgstr "')
       return {
-        id: breakLine(msg[0]),
-        str: msg[1] ? breakLine(msg[1]) : msg[1],
+        id: rmStrictQuotationLineBreak(breakLine(msg[0])),
+        str: msg[1] ? rmQuotationLineBreak(breakLine(msg[1])) : msg[1],
         comment
       }
     })
   }
-  // console.log(poJson)
-  console.log(poJson.body.map(i=>i.id))
   return poJson
 }
 
@@ -67,8 +66,23 @@ function html2poJson (string) {
   })
 }
 
+function poJson2po (string) {
+  function sanitizeLineBreak(text = '') {
+    const sanitized = text.replace(/\n/g, '\\n"\n"')
+    return sanitized.replace()
+  }
+  const poJson = JSON.parse(string)
+  console.log(poJson.body[0].id)
+  const file = poJson.header.join('\n"') +'\n\n'+ poJson.body.map(line => {
+    return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
+  }).join('')
+  return file
+}
+
+
 module.exports = {
   po2poJson,
   searchAndTransform,
-  html2poJson
+  html2poJson,
+  poJson2po
 }

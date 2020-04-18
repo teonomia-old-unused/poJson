@@ -18,17 +18,17 @@ Below are easy table to know the types of files that this module supports
 
 | From this | To this   | Implemented |
 |-----------|:---------:|------------:|
-| file.po   | file.json | [x] Yes     |
-| file.json | file.po   | [x] Yes     |
-| file.html | file.json | [ ] Soon    |
-| file.json | file.html | [ ] No      |
+| file.po   | file.json |  Yes     |
+| file.json | file.po   |  Yes     |
+| file.html | file.json |  Soon    |
+| file.json | file.html |  No      |
 
 ## .po support coverage:
 
 | From this       | Implemented |
 |-----------      |------------:|
-| comments        | [x] Yes     |
-| msgid           | [x] Yes     |
-| msgstr          | [x] Yes     |
-| msgstr[]        | [ ] No      |
-| msgid_plural    | [ ] No      |
+| comments        |  Yes     |
+| msgid           |  Yes     |
+| msgstr          |  Yes     |
+| msgstr[]        |  No      |
+| msgid_plural    |  No      |

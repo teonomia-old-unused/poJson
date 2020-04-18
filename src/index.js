@@ -2,16 +2,6 @@ const F = require('./File')
 const HTML = require('node-html-parser')
 const { rmStrictQuotationLineBreak, rmQuotationLineBreak, rmStartEmptyLine } = require('./utils')
 
-async function searchAndTransform (print =true , path = `./gettext_po_sample_file.po`) {
-  const file = await F.rf(path)
-  const fileString = await file.toString()
-  const transformed = transform(fileString)
-  if (print) {
-    console.log(transformed)
-  }
-
-  return transformed
-}
 
 function po2poJson (string) {
   const splitedPo = string.split('\n\n')
@@ -35,7 +25,17 @@ function po2poJson (string) {
   }
   return poJson
 }
-
+function poJson2po (string) {
+  function sanitizeLineBreak(text = '') {
+    const sanitized = text//.replace(/\n/g, '\\n"\n"')
+    return sanitized.replace()
+  }
+  const poJson = JSON.parse(string)
+  const file = poJson.header.join('\n"') +'\n\n'+ poJson.body.map(line => {
+    return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
+  }).join('')
+  return file
+}
 function html2poJson (string) {
   // console.log(string)
   const content = HTML.parse(string)
@@ -65,23 +65,35 @@ function html2poJson (string) {
     body
   })
 }
-
-function poJson2po (string) {
-  function sanitizeLineBreak(text = '') {
-    const sanitized = text//.replace(/\n/g, '\\n"\n"')
-    return sanitized.replace()
-  }
+function poJson2html (string, translated = false) {
+  // console.log(string)
   const poJson = JSON.parse(string)
-  const file = poJson.header.join('\n"') +'\n\n'+ poJson.body.map(line => {
-    return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
-  }).join('')
-  return file
+  const header = `<header>${poJson.header.join('\n')}</header>`
+  let content
+
+  const article = `<article>${poJson.body.map(poLineObject => {
+    const thereIsHTMLNotation = poLineObject.comment.startsWith('##HTML:')
+    const undefinedNode = poLineObject.comment.startsWith('##HTML: <undefined undefined')
+    // console.log(thereIsHTMLNotation)
+
+    if (thereIsHTMLNotation && !undefinedNode) {
+      content = translated? poLineObject.str: poLineObject.id
+      return poLineObject.comment.substr(8).replace('{{#c}}',content)
+    } else {
+      content = translated? poLineObject.str: poLineObject.id
+      // console.log(thereIsHTMLNotation,content.substr(thereIsHTMLNotation))
+      return `<p>${content}</p>`
+    }
+    return ``
+  }).join('\n')}</article>`
+
+  return `<HTML>\n${header}\n${article}\n</HTML>`
 }
 
 
 module.exports = {
   po2poJson,
-  searchAndTransform,
+  poJson2po,
   html2poJson,
-  poJson2po
+  poJson2html
 }

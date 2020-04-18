@@ -1,6 +1,6 @@
 {
   "name": "po_json",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "main": "index.js",
   "license": "GPL",
   "dependencies": {

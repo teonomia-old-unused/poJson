@@ -119,3 +119,13 @@ this html structure above will return an object like below:
 As you can see in this example, the function will simplify your html structure.
 Then, if you transform this json into a html, the element span will be no more in your html structure.
 This file translation behave like this to reduce html to an object that match the simple structure of a .po file.
+
+## This module does not help you to handle .po?
+This is a open source module, **you can improve it** and **add features that could help this translation porpouse**.
+
+### How to contribute?
+you can simply help us with documentation.
+This is very important, if no one understand how to use, no one will. And there is a simple way that you can help, not only this project, but even every one that will use.
+
+However, if you want to add a feature, remove a bug, change some behavior or only comment over something important, feel free to open a issue and even a Pull Request.
+Your welcome. :D

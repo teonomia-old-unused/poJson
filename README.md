@@ -11,8 +11,8 @@ msgid_plural "%d files removed"
 msgstr[0] ""
 msgstr[1] ""
 ```
-This module will not suport files that contains this .po feature
-Below are easy table to know the types of files that this module supports
+This module will not suport files that contains this .po feature.
+Below are an easy table to know the types of files that this module supports
 
 ## features Implemented:
 

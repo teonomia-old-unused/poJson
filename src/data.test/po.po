@@ -16,3 +16,11 @@ msgstr ""
 #: /app/modules/views
 msgid "TODO List"
 msgstr "Lista TODO"
+
+#: /app/modules/views
+msgid ""
+"We were unable to sign you up.\n"
+"Please correct the marked fields."
+msgstr ""
+"Nous n'avons pas pu vous inscrire.\n"
+"Veuillez corriger les champs marqués."

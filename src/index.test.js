@@ -10,7 +10,6 @@ describe('PO para JSON', () => {
     const poPoBuff = await F.rf(cwd('data.test/po.po')); const poPo = poPoBuff.toString()
     const returnedPoJson = poJson.po2poJson(poPo)
 
-    // console.log(returnedPoJson.body[0])
     expect(returnedPoJson.body[0].id).toBeDefined()
     expect(returnedPoJson.body[0].id[0]).toBe('TODO List')
     expect(returnedPoJson.body[0].str).toBeDefined()
@@ -24,7 +23,6 @@ describe('PoJSON para PO', () => {
   it('modelo da estrutura do po', async () => {
     expect.assertions(1)
     const poJsonBuff = await F.rf(cwd('data.test/poJson.json')); const poJsonS = poJsonBuff.toString()
-
     const returnedPo = poJson.poJson2po(poJsonS)
 
     const splitedReturnedPo = returnedPo.split('\n\n')

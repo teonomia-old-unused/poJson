@@ -67,11 +67,5 @@ msgid "Terms and conditions"
 msgstr "Termes et conditions"
 
 #: /app/modules/views
-msgid "Just one user online"
-msgid_plural "There are %d users online"
-msgstr[0] "Un seul utilisateur en ligne"
-msgstr[1] "Il y a %d utilisateurs en ligne"
-
-#: /app/modules/views
 msgid "Password"
 msgstr "Mot de passe"

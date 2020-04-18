@@ -17,3 +17,9 @@ msgstr ""
 msgid "TODO List"
 msgmsg "Lista TODO"
 
+#: /app/modules/views
+msgid ""\n"
+""We were unable to sign you up.,Please correct the marked fields."
+msgmsg ""\n"
+""Nous n'avons pas pu vous inscrire.,Veuillez corriger les champs marqués."
+

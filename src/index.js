@@ -1,6 +1,6 @@
 const F = require('./File')
 const HTML = require('node-html-parser')
-const { rmStrictQuotationLineBreak, rmQuotationLineBreak } = require('./utils')
+const { rmStrictQuotationLineBreak, rmQuotationLineBreak, rmStartEmptyLine } = require('./utils')
 
 async function searchAndTransform (print =true , path = `./gettext_po_sample_file.po`) {
   const file = await F.rf(path)
@@ -27,8 +27,8 @@ function po2poJson (string) {
       const comment = splited.shift()
       const msg = splited[0].split('msgstr "')
       return {
-        id: rmStrictQuotationLineBreak(breakLine(msg[0])),
-        str: msg[1] ? rmQuotationLineBreak(breakLine(msg[1])) : msg[1],
+        id: rmStartEmptyLine(rmStrictQuotationLineBreak(breakLine(msg[0]))),
+        str: msg[1] ? rmStartEmptyLine(rmQuotationLineBreak(breakLine(msg[1]))) : msg[1],
         comment
       }
     })
@@ -72,7 +72,6 @@ function poJson2po (string) {
     return sanitized.replace()
   }
   const poJson = JSON.parse(string)
-  console.log(poJson.body[0].id)
   const file = poJson.header.join('\n"') +'\n\n'+ poJson.body.map(line => {
     return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
   }).join('')

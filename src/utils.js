@@ -1,6 +1,20 @@
 /**
+ * Remove emptyLine
+ * @param {string || Array} input
+ */
+function rmStartEmptyLine(input) {
+
+  if (typeof input === 'string') {
+    return input.replace(/(^\"\n\")/g,'')
+  } else if (Array.isArray(input)) {
+    return input.map(i=>i.replace(/(^\"\n\")/g,''))
+  } else {
+    throw new Error('Error on Remove caracteres, from Utils.')
+  }
+}
+/**
  * Remove LineBreak
- * @param {string} input
+ * @param {string || Array} input
  */
 function rmLineBreak(input) {
 
@@ -14,7 +28,7 @@ function rmLineBreak(input) {
 }
 /**
  * Remove Quotation
- * @param {string} input
+ * @param {string || Array} input
  */
 function rmQuotation(input) {
   if (typeof input === 'string') {
@@ -27,7 +41,7 @@ function rmQuotation(input) {
 }
 /**
  * Remove LineBreak and Quotation
- * @param {string} input
+ * @param {string || Array} input
  */
 function rmQuotationLineBreak(input) {
   if (typeof input === 'string') {
@@ -40,7 +54,7 @@ function rmQuotationLineBreak(input) {
 }
 /**
  * Remove LineBreak and Quotation
- * @param {string} input
+ * @param {string || Array} input
  */
 function rmStrictQuotationLineBreak(input) {
   if (typeof input === 'string') {
@@ -53,6 +67,7 @@ function rmStrictQuotationLineBreak(input) {
 }
 
 module.exports = {
+  rmStartEmptyLine,
   rmLineBreak,
   rmQuotation,
   rmQuotationLineBreak,

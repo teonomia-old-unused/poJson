@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "GPL",
   "dependencies": {
+    "jest": "^25.3.0",
     "node-html-parser": "^1.2.16"
   }
 }

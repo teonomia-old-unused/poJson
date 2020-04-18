@@ -29,21 +29,35 @@ describe('PoJSON para PO', () => {
     const splitedReturnedPo = returnedPo.split('\n\n')
     expect(splitedReturnedPo[1]).toBe('#. Please don\'t change the name of the application\n#: /app/modules/views\nmsgid "TODO List"\nmsgmsg "Lista TODO"')
   })
+})
 
-  describe('HTML para PoJSON', () => {
-    jest.resetModules()
-    it('modelo da estrutura do poJson', async () => {
-      expect.assertions(4)
-      const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
-      const returnedHtmlString = poJson.html2poJson(htmlS)
-      F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedHtmlString)
-      const returnedHtmlJson = JSON.parse(returnedHtmlString)
+describe('HTML para PoJSON', () => {
+  jest.resetModules()
+  it('modelo da estrutura do poJson', async () => {
+    expect.assertions(4)
+    const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
+    const returnedHtmlString = poJson.html2poJson(htmlS)
+    F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedHtmlString)
+    const returnedHtmlJson = JSON.parse(returnedHtmlString)
 
-      // console.log(returnedHtmlJson.body[0].id)
-      expect(returnedHtmlJson.body[0].id).toBeDefined()
-      expect(returnedHtmlJson.body[0].str).toBeDefined()
-      expect(returnedHtmlJson.body[0].comment).toBeDefined()
-      expect(returnedHtmlJson.body[0].comment).toMatch(/^##HTML:/g)
-    })
+    // console.log(returnedHtmlJson.body[0].id)
+    expect(returnedHtmlJson.body[0].id).toBeDefined()
+    expect(returnedHtmlJson.body[0].str).toBeDefined()
+    expect(returnedHtmlJson.body[0].comment).toBeDefined()
+    expect(returnedHtmlJson.body[0].comment).toMatch(/^##HTML:/g)
+  })
+})
+
+describe('PoJSON para HTML', () => {
+  jest.resetModules()
+  it('modelo da estrutura do poJson', async () => {
+    expect.assertions(4)
+    const htmlBuff = await F.rf(cwd('data.test/po.po')); const htmlS = htmlBuff.toString()
+    const returnedHtmlString = poJson.html2poJson(htmlS)
+    F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedHtmlString)
+    const returnedHtmlJson = JSON.parse(returnedHtmlString)
+
+    // console.log(returnedHtmlJson.body[0].id)
+    expect(returnedHtmlJson.body[0].comment).toMatch(/^##HTML:/g)
   })
 })

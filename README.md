@@ -121,7 +121,7 @@ Then, if you transform this json into a html, the element span will be no more i
 This file translation behave like this to reduce html to an object that match the simple structure of a .po file.
 
 ## This module does not help you to handle .po?
-This is a open source module, **you can improve it** and **add features that could help this translation porpouse**.
+This is a open source module, **you can improve it** and **add features that could help this translation purpose**.
 
 ### How to contribute?
 you can simply help us with documentation.

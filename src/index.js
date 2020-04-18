@@ -90,7 +90,6 @@ function poJson2html (string, translated = false) {
   return `<HTML>\n${header}\n${article}\n</HTML>`
 }
 
-
 module.exports = {
   po2poJson,
   poJson2po,

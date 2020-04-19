@@ -1,7 +1,7 @@
 # poJson
 This Module transform a file .po into .json following the poJson pathern.
 It also transform .po to .html.
-If you want to transform **.JSON to .PO**, **.PO to .JSON**, **.PO to .HTML**, **.HTML to .PO** or eaven **HTML to poJson pathern**, this module can help you.
+If you want to transform **.JSON to .PO**, **.PO to .JSON**, **.PO to .HTML**, **.HTML to .PO** or even **HTML to poJson pathern**, this module can help you.
 
 ----
 

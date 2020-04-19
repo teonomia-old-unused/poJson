@@ -43,8 +43,8 @@ function html2poJson (string) {
 
   const body = content.childNodes[0].childNodes.map(node => {
     return {
-      id: node.rawText,
-      str: '',
+      id: [node.rawText],
+      str: [''],
       comment: `##HTML: <${node.tagName} ${node.rawAttrs}>{{#c}}</${node.tagName}>` }
     }
   )

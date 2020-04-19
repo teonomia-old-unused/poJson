@@ -66,11 +66,12 @@ the poJson pather is simple:
 # Usage:
 you need only require this module and use it as showed below:
 ```js
-poJson.po2poJson('<Your File String>') // Transform .po to .json
+poJson.po2poJson('<Your File String>') // Transform .po to Object PoJson
 poJson.poJson2po('<Your File String>') // Transform .json to .po
-poJson.html2poJson('<Your File String>') // transform .html to .json
+poJson.html2poJson('<Your File String>') // transform .html to Object PoJson
 poJson.poJson2html('<Your File String>') // transform .json to html
 ```
+
 
 ## html to json:
 You need to provide a parameter with this aspects:

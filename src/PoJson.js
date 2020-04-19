@@ -116,9 +116,4 @@ module.exports = class PoJson {
     )
     return  new PoJson(body)
   }
-
-  static fromPoJsonString (string) {
-    const poJson = JSON.parse(string)
-    return new PoJson(poJson.body, poJson.header)
-  }
 }

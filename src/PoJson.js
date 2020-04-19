@@ -74,6 +74,8 @@ module.exports = class PoJson {
 
   get string () { return this.toString() }
 
+  get po () { return this.toPo() }
+
   get html () { return this.toHtml() }
 
   get translatedHtml () { return this.toHtml(true) }

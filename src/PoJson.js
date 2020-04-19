@@ -64,6 +64,10 @@ module.exports = class PoJson {
 
       return `<HTML>\n${header}\n${article}\n</HTML>`
     }
+
+    this.toTranslatedHtml = () => {
+      return this.toHtml(true)
+    }
   }
 
   get json () { return this.toJson() }

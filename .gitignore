@@ -1,2 +1,6 @@
 .vscode
 node_modules
+src/dataProcessed/*
+!src/dataProcessed/
+src/dataProcessed/test/*
+!src/dataProcessed/test

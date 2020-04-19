@@ -49,7 +49,7 @@ Below are an easy table to know the types of files that this module supports
 the poJson pather is simple:
 ```js
 {
-  header:[] // all line of headers need to be in simple strings
+  header:["","",...] // all line of headers need to be in simple strings
   body:[
     {
       id:[""], // array of string. the msgid in .po file
@@ -64,15 +64,65 @@ the poJson pather is simple:
 ```
 
 # Usage:
-you need only require this module and use it as showed below:
+We provide a PoJson Object.
+
+## creating PoJson Object
+here is a summary of how to create this Object:
 ```js
-poJson.po2poJson('<Your File String>') // Transform .po to .json
-poJson.poJson2po('<Your File String>') // Transform .json to .po
-poJson.html2poJson('<Your File String>') // transform .html to .json
-poJson.poJson2html('<Your File String>') // transform .json to html
+const PoJson = require('PoJson') // require the module. (Obivious)
+let poJson
+
+// Here a exmaple how to get your object from po file string.
+const poFile = '...YOUR PO FILE STRING'
+poJson = PoJson.fromPo(poFile)// this function returns PoJson Object
+
+// Here a exmaple how to get your object from HTML file string.
+const htmlFile = '...YOUR HTML FILE STRING'
+poJson = PoJson.fromHtml(htmlFile)// this function returns PoJson Object
+
+// Here is an example to get the PoJson Object by default class calling
+// the constructor will recieve the body list on first param and header in second.
+const bodyExample = [{id:"",str:"",comment:""}]
+const headerExample = [""]
+poJson = new PoJson(bodyExample, headerExample) // HEADER IS NOT REQUIRED!
+// if you do not inform header it will create a default header
+
+// You can also inform a stringfied poJson only
+const stringfied = JSON.stringfy({ header:headerExample, body:bodyExample })
+poJson = new PoJson(stringfied) // it will create the exact same file, even if you do not
+// inform a header, it will create it automatically too.
+```
+As you can see above, you can directly transform html, po, json parsed or not to a PoJson Object.
+
+## Using PoJson Object
+here is a summary of how to create this Object:
+```js
+// As the last example code, we will use the variable poJson here tooo
+
+const json = poJson.json // this will return your poJson as simple Json (without methods)
+
+const str = poJson.string // this will return your poJson stringfied
+
+const po = poJson.po // this will return your poJson as po file string
+
+const html = poJson.html// this will return HTML with original content of your poJson
+
+const translatedHtml = poJson.translatedHtml // this will return HTML with translated content
+
+
+// if your file have empty lines and you want to remove you can use this
+const newPoJosn = poJson.removeEmpty // it will return the exact same obj without this empty lines.
+// it will not change your original object, will only return a similar without empty.
+
+// and you can also concatenate this functions.
+const jsonWithoutEmpty = poJson.removeEmpty.json
+const stringWithoutEmpty = poJson.removeEmpty.string
+const poWithoutEmpty = poJson.removeEmpty.po
+const htmlWithoutEmpty = poJson.removeEmpty.html
 ```
 
-## html to json:
+
+## HTML to poJson details:
 You need to provide a parameter with this aspects:
 - html **string**.
 - single html node object.
@@ -89,7 +139,7 @@ Each child node will be a msgid, then, this examples will ilustrate the behavior
 this html structure above will return an object like below:
 ```js
 {
-  haeder: ...,
+  haeder: [...],
   body: [
     {id:'texto1', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'},
     {id:'texto2', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'}
@@ -109,7 +159,7 @@ this is an other example to understand the behavior with more HTML childs:
 this html structure above will return an object like below:
 ```js
 {
-  haeder: ...,
+  haeder: [...],
   body: [
     {id:'texto1 span text', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'},
     {id:'texto2', str:'', comment:'##HTML: <p undefined>{{#c}}</p>'}

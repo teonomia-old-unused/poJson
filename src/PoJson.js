@@ -25,15 +25,30 @@ module.exports = class PoJson {
       return JSON.stringify(this.toJson())
     }
 
-    this.removeEmpty = () => {
-      return this.body.filter(line => {
-        console.log(line)
-        const firstLineParsed = utils.rmLineBreak(line.id[0]).trim()
-        if (line.id.length === 1 && firstLineParsed.length === 0) {
-          return false
+    this.toPo = () => {
+        function sanitizeLineBreak(text = '') {
+          const sanitized = text//.replace(/\n/g, '\\n"\n"')
+          return sanitized.replace()
         }
-        return true
-      })
+        const poJson = JSON.parse(string)
+        const file = poJson.header.join('\n"') +'\n\n'+ poJson.body.map(line => {
+          return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
+        }).join('')
+        return file
     }
+  }
+
+  get json () { return this.toJson() }
+
+  get string () { return this.toString() }
+
+  get removeEmpty () { return this.body.filter(line => {
+      console.log(line)
+      const firstLineParsed = utils.rmLineBreak(line.id[0]).trim()
+      if (line.id.length === 1 && firstLineParsed.length === 0) {
+        return false
+      }
+      return true
+    })
   }
 }

@@ -11,7 +11,7 @@ describe('PO para JSON', () => {
     expect.assertions(5)
     const poPoBuff = await F.rf(cwd('data.test/po.po')); const poPo = poPoBuff.toString()
     const returnedPoJson = poJson.po2poJson(poPo)
-    F.wf(cwd('dataProcessed/test/po2poJson.json'),returnedPoJson.toString())
+    F.wf(cwd('dataProcessed/test/po2poJson.json'),returnedPoJson.toString)
 
     expect(returnedPoJson.body[0].id).toBeDefined()
     expect(returnedPoJson.body[0].id[0]).toBe('TODO List')
@@ -39,7 +39,7 @@ describe('HTML para PoJSON', () => {
     expect.assertions(4)
     const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
     const returnedPoJson = poJson.html2poJson(htmlS)
-    F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedPoJson.toString())
+    F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedPoJson.string)
 
     expect(returnedPoJson.body[0].id).toBeDefined()
     expect(returnedPoJson.body[0].str).toBeDefined()

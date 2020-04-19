@@ -10,9 +10,8 @@ function po2poJson (string) {
     return string.split('\\n"\n"')
   }
 
-  const poJson = {
-    header: splitedPo.shift().split('\n"'),
-    body: splitedPo.map(i => {
+  const header = splitedPo.shift().split('\n"')
+  const body = splitedPo.map(i => {
       const splited = i.split('msgid "')
       const comment = splited.shift()
       const msg = splited[0].split('msgstr "')
@@ -22,8 +21,7 @@ function po2poJson (string) {
         comment
       }
     })
-  }
-  return poJson
+  return new PoJson(body, header)
 }
 function poJson2po (string) {
   function sanitizeLineBreak(text = '') {
@@ -36,7 +34,7 @@ function poJson2po (string) {
   }).join('')
   return file
 }
-function html2poJson (string, removeEmpty = true) {
+function html2poJson (string) {
   const content = HTML.parse(string)
 
   const body = content.childNodes[0].childNodes.map(node => {
@@ -46,8 +44,7 @@ function html2poJson (string, removeEmpty = true) {
       comment: `##HTML: <${node.tagName} ${node.rawAttrs}>{{#c}}</${node.tagName}>` }
     }
   )
-  const response = new PoJson(body)
-  return response.removeEmpty().toString()
+  return  new PoJson(body)
 }
 function poJson2html (string, translated = false) {
   // console.log(string)
@@ -68,7 +65,6 @@ function poJson2html (string, translated = false) {
       // console.log(thereIsHTMLNotation,content.substr(thereIsHTMLNotation))
       return `<p>${content}</p>`
     }
-    return ``
   }).join('\n')}</article>`
 
   return `<HTML>\n${header}\n${article}\n</HTML>`

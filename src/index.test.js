@@ -26,7 +26,7 @@ describe('PoJSON para PO', () => {
   it('modelo da estrutura do po', async () => {
     expect.assertions(1)
     const poJsonBuff = await F.rf(cwd('data.test/poJson.json')); const poJsonS = poJsonBuff.toString()
-    const returnedPo = new PoJson(poJsonS).po()
+    const returnedPo = new PoJson(poJsonS).po
     F.wf(cwd('dataProcessed/test/poJson2po.po'),returnedPo)
     const splitedReturnedPo = returnedPo.split('\n\n')
     expect(splitedReturnedPo[1]).toBe('#. Please don\'t change the name of the application\n#: /app/modules/views\nmsgid "TODO List"\nmsgmsg "Lista TODO"')

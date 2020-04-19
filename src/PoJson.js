@@ -37,10 +37,9 @@ module.exports = class PoJson {
           const sanitized = text//.replace(/\n/g, '\\n"\n"')
           return sanitized.replace()
         }
-        const file = this.header.join('\n"') +'\n\n'+ this.body.map(line => {
+        return this.header.join('\n"') +'\n\n'+ this.body.map(line => {
           return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
         }).join('')
-        return file
     }
 
     this.toHtml = (translated = false) => {

@@ -1,7 +1,7 @@
 const F = require('./File')
 const HTML = require('node-html-parser')
 const { rmStrictQuotationLineBreak, rmQuotationLineBreak, rmStartEmptyLine } = require('./utils')
-
+const PoJson = require('./PoJson')
 
 function po2poJson (string) {
   const splitedPo = string.split('\n\n')
@@ -36,10 +36,8 @@ function poJson2po (string) {
   }).join('')
   return file
 }
-function html2poJson (string) {
-  // console.log(string)
+function html2poJson (string, removeEmpty = true) {
   const content = HTML.parse(string)
-  // console.log(content.childNodes[0].rawText)
 
   const body = content.childNodes[0].childNodes.map(node => {
     return {
@@ -48,22 +46,8 @@ function html2poJson (string) {
       comment: `##HTML: <${node.tagName} ${node.rawAttrs}>{{#c}}</${node.tagName}>` }
     }
   )
-  return JSON.stringify({
-    header: [
-      "msgid \"\"\nmsgstr \"\"",
-      "MIME-Version: 1.0\\n\"",
-      "Content-Type: text/plain; charset=UTF-8\\n\"",
-      "Content-Transfer-Encoding: 8bit\\n\"",
-      `X-Generator: poJson 0.0.1\\n\"`,
-      "Project-Id-Version: \\n\"",
-      "Language: pt-br\\n\"",
-      "POT-Creation-Date: \\n\"",
-      "PO-Revision-Date: \\n\"",
-      "Last-Translator: \\n\"",
-      "Language-Team: \\n\""
-    ],
-    body
-  })
+  const response = new PoJson(body)
+  return response.removeEmpty().toString()
 }
 function poJson2html (string, translated = false) {
   // console.log(string)

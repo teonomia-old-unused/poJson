@@ -1,4 +1,5 @@
 const poJson = require('./index')
+const PoJson = require('./PoJson')
 const F = require('./File')
 const cwdPath = process.cwd()
 function cwd (path) {return `${cwdPath}/src/${path}`}
@@ -10,7 +11,7 @@ describe('PO para JSON', () => {
   it('modelo de body com id, str e comment', async () => {
     expect.assertions(5)
     const poPoBuff = await F.rf(cwd('data.test/po.po')); const poPo = poPoBuff.toString()
-    const returnedPoJson = poJson.po2poJson(poPo)
+    const returnedPoJson = PoJson.fromPo(poPo)
     F.wf(cwd('dataProcessed/test/po2poJson.json'),returnedPoJson.toString)
 
     expect(returnedPoJson.body[0].id).toBeDefined()
@@ -38,7 +39,7 @@ describe('HTML para PoJSON', () => {
   it('modelo da estrutura do poJson', async () => {
     expect.assertions(4)
     const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
-    const returnedPoJson = poJson.html2poJson(htmlS)
+    const returnedPoJson = PoJson.fromHtml(htmlS)
     F.wf(cwd('dataProcessed/test/articleHtml.json'),returnedPoJson.string)
 
     expect(returnedPoJson.body[0].id).toBeDefined()
@@ -53,7 +54,7 @@ describe('PoJSON para HTML', () => {
   it('modelo da estrutura do poJson', async () => {
     expect.assertions(4)
     const jsonBuff = await F.rf(cwd('data.test/articleHtml.json')); const jsonS = jsonBuff.toString()
-    const returnedJsonHtmlString = poJson.poJson2html(jsonS)
+    const returnedJsonHtmlString = new PoJson(jsonS).html
 
     const HTMLElement = HTML.parse(returnedJsonHtmlString)
 

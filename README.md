@@ -65,11 +65,29 @@ the poJson pather is simple:
 
 # Usage:
 We provide a PoJson Object.
+how to install:
+#### NPM
+```
+# To lastest version
+npm install git+https://github.com/teonomia/poJson
+
+# To especified version
+npm install git+https://github.com/teonomia/poJson#0.5.0
+```
+#### YARN
+```
+# To lastest version
+yarn add https://github.com/teonomia/poJson
+
+# To especified version
+yarn add https://github.com/teonomia/poJson#0.5.0
+```
+
 
 ## creating PoJson Object
 here is a summary of how to create this Object:
 ```js
-const PoJson = require('PoJson') // require the module. (Obivious)
+const PoJson = require('pojson') // require the module. (Obivious)
 let poJson
 
 // Here a exmaple how to get your object from po file string.

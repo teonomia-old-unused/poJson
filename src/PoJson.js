@@ -34,11 +34,11 @@ module.exports = class PoJson {
 
     this.toPo = () => {
         function sanitizeLineBreak(text = '') {
-          const sanitized = text//.replace(/\n/g, '\\n"\n"')
+          const sanitized = text.replace(/\n/g, '\\n"\n"')
           return sanitized.replace()
         }
         return this.header.join('\n"') +'\n\n'+ this.body.map(line => {
-          return `${line.comment}msgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
+          return `${line.comment}\nmsgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
         }).join('')
     }
 

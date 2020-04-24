@@ -13,7 +13,7 @@ module.exports = class PoJson {
         "MIME-Version: 1.0\\n\"",
         "Content-Type: text/plain; charset=UTF-8\\n\"",
         "Content-Transfer-Encoding: 8bit\\n\"",
-        `X-Generator: poJson 0.0.1\\n\"`,
+        `X-Generator: poJson 0.5.4\\n\"`,
         "Project-Id-Version: \\n\"",
         "Language: pt-br\\n\"",
         "POT-Creation-Date: \\n\"",

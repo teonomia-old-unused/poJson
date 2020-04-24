@@ -1,6 +1,6 @@
 {
   "name": "pojson",
-  "version": "0.5.2",
+  "version": "0.5.4",
   "main": "index.js",
   "license": "GPL",
   "devDependencies": {

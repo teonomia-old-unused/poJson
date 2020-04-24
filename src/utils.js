@@ -66,10 +66,44 @@ function rmStrictQuotationLineBreak(input) {
   }
 }
 
+/**
+ * Break lines and scape special caracters
+ * @param {string} input
+ * @returns {array}
+ */
+function splitInLinesByCaracters(fullText, charsPerLine = 79) {
+  function endwhith(_text, _caractere='\\', recursiveTimes = 0) {
+    if(_text.endsWith(_caractere)){
+      const _textLength = _text.length
+      return endwhith(_text.substr(0,_textLength-1), _caractere, recursiveTimes++)
+    }else{
+      return {_text, recursiveTimes}
+    }
+  }
+
+  let thisLine
+  let textBreaked = ''
+  const arrayOfLines = []
+  for (let caractere = 0; caractere < fullText.length; caractere+=charsPerLine) {
+    textBreaked += '"'
+
+    thisLine = fullText.substr(caractere, charsPerLine)
+    const verifiedLine = endwhith(thisLine)
+    if(verifiedLine.recursiveTimes){
+      caractere -= verifiedLine.recursiveTimes
+      arrayOfLines.push(verifiedLine._text)
+    }else{
+      arrayOfLines.push(thisLine)
+    }
+  }
+  return arrayOfLines
+}
+
 module.exports = {
   rmStartEmptyLine,
   rmLineBreak,
   rmQuotation,
   rmQuotationLineBreak,
-  rmStrictQuotationLineBreak
+  rmStrictQuotationLineBreak,
+  splitInLinesByCaracters
 }

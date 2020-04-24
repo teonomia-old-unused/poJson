@@ -1,4 +1,4 @@
-const { rmStrictQuotationLineBreak, rmQuotationLineBreak, rmStartEmptyLine, rmLineBreak } = require('./utils')
+const { rmStrictQuotationLineBreak, rmQuotationLineBreak, rmStartEmptyLine, rmLineBreak, splitInLinesByCaracters } = require('./utils')
 const HTML = require('node-html-parser')
 
 module.exports = class PoJson {
@@ -38,7 +38,7 @@ module.exports = class PoJson {
           return sanitized.replace()
         }
         return this.header.join('\n"') +'\n\n'+ this.body.map(line => {
-          return `${line.comment}\nmsgid "${line.id.map(i=>sanitizeLineBreak(i))}"\nmsgmsg "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
+          return `${line.comment}\nmsgid "${line.id.map(i=>splitInLinesByCaracters(sanitizeLineBreak(i)).join('"\n"'))}"\nmsgstr "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
         }).join('')
     }
 

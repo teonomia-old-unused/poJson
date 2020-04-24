@@ -79,14 +79,16 @@ module.exports = class PoJson {
 
   get translatedHtml () { return this.toHtml(true) }
 
-  get removeEmpty () { return this.body.filter(line => {
-      console.log(line)
+  get removeEmpty () {
+    this.body = this.body.filter(line => {
+      // console.log(line)
       const firstLineParsed = rmLineBreak(line.id[0]).trim()
       if (line.id.length === 1 && firstLineParsed.length === 0) {
         return false
       }
       return true
     })
+    return this
   }
 
   static fromPo (string) {

@@ -3,6 +3,9 @@
   "version": "0.5.4",
   "main": "index.js",
   "license": "GPL",
+  "scripts": {
+    "test": "jest"
+  },
   "devDependencies": {
     "jest": "^25.3.0"
   },

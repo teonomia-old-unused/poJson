@@ -43,7 +43,6 @@ module.exports = class PoJson {
     }
 
     this.toHtml = (translated = false) => {
-      const header = `<header>${this.header.join('\n')}</header>`
 
       let content
 
@@ -61,7 +60,7 @@ module.exports = class PoJson {
         }
       }).join('\n')}</article>`
 
-      return `<HTML>\n${header}\n${article}\n</HTML>`
+      return `<HTML>\n${article}\n</HTML>`
     }
 
     this.toTranslatedHtml = () => {

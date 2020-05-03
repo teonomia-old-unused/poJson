@@ -52,10 +52,17 @@ module.exports = class PoJson {
 
         if (thereIsHTMLNotation && !undefinedNode) {
           content = translated? poLineObject.str: poLineObject.id
+
+          content = content.join("")
+          .replace(/\\n/g, "")
+          .replace(/\\t/g, "")
+          .replace(/\\"/g, '"')
+
           return poLineObject.comment.substr(8).replace('{{#c}}',content)
         } else {
           content = translated? poLineObject.str: poLineObject.id
-          // console.log(thereIsHTMLNotation,content.substr(thereIsHTMLNotation))
+
+          content = typeof content
           return `<p>${content}</p>`
         }
       }).join('\n')}</article>`
@@ -92,17 +99,19 @@ module.exports = class PoJson {
 
   static fromPo (string) {
     const splitedPo = string.split('\n\n')
-    function breakLine (string) {
-      return string.split('\\n"\n"')
-    }
     const header = splitedPo.shift().split('\n"')
     const body = splitedPo.map(i => {
       const splited = i.split('msgid "')
       const comment = splited.shift()
       const msg = splited[0].split('msgstr "')
+      const id = rmStartEmptyLine(rmStrictQuotationLineBreak(msg[0])).substr(2).split('"\n"')
+      id.shift()
+      const str = rmStartEmptyLine(rmQuotationLineBreak(msg[1])).substr(2).split('"\n"')
+      str.shift()
+
       return {
-        id: rmStartEmptyLine(rmStrictQuotationLineBreak(breakLine(msg[0]))),
-        str: msg[1] ? rmStartEmptyLine(rmQuotationLineBreak(breakLine(msg[1]))) : msg[1],
+        id,
+        str: msg[1] ? str : msg[1],
         comment
       }
     })

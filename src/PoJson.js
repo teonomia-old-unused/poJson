@@ -53,10 +53,12 @@ module.exports = class PoJson {
         if (thereIsHTMLNotation && !undefinedNode) {
           content = translated? poLineObject.str: poLineObject.id
 
-          content = content.join("")
-          .replace(/\\n/g, "")
-          .replace(/\\t/g, "")
-          .replace(/\\"/g, '"')
+          if (typeof content != 'string' ) {
+            content = content.join("")
+            .replace(/\\n/g, "")
+            .replace(/\\t/g, "")
+            .replace(/\\"/g, '"')
+          }
 
           return poLineObject.comment.substr(8).replace('{{#c}}',content)
         } else {

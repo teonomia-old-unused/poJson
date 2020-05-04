@@ -1,0 +1,3 @@
+() => {
+      return JSON.stringify(this.toJson());
+    }

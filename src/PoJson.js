@@ -107,9 +107,8 @@ module.exports = class PoJson {
       const comment = splited.shift()
       const msg = splited[0].split('msgstr "')
       const id = rmStartEmptyLine(rmStrictQuotationLineBreak(msg[0])).substr(2).split('"\n"')
-      id.shift()
+
       const str = rmStartEmptyLine(rmQuotationLineBreak(msg[1])).substr(2).split('"\n"')
-      str.shift()
 
       return {
         id,

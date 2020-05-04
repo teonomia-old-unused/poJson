@@ -14,9 +14,9 @@ describe('PO para JSON', () => {
     F.wf(cwd('data.test/po2poJson.json'),returnedPoJson.toString)
 
     expect(returnedPoJson.body[0].id).toBeDefined()
-    expect(returnedPoJson.body[0].id[0]).toBeUndefined()
+    expect(returnedPoJson.body[0].id[0]).toBeDefined()
     expect(returnedPoJson.body[0].str).toBeDefined()
-    expect(returnedPoJson.body[0].str[0]).toBeUndefined()
+    expect(returnedPoJson.body[0].str[0]).toBeDefined()
     expect(returnedPoJson.body[0].comment).toBeDefined()
   })
 })
@@ -67,16 +67,20 @@ describe('PoJSON para HTML', () => {
 
 describe('PO rush', () => {
   //jest.resetModules()
-  it('rush', async () => {
+  it('4 rush', async () => {
     expect.assertions(2)
     const poPoBuff = await F.rf(cwd('data.test/final-rush-article.po')); const poPo = poPoBuff.toString()
     const returnedPoJson = PoJson.fromPo(poPo)
-    returnedPoJson.toHtml()
+    //returnedPoJson.toHtml()
     // console.log(returnedPoJson)
     F.wf(cwd('data.test/final-rush-article.json'),returnedPoJson.toString)
 
     expect(returnedPoJson.body[0].id).toBeDefined()
-    expect(returnedPoJson.body[4].id[0]).toBe('	To be prayerless is to regard ourselves as autonomous, and to believe, im')
+    expect(returnedPoJson.body[4].id[1]).toBe('	To be prayerless is to regard ourselves as autonomous, and to believe, im')
+
+    // console.log(returnedPoJson.body)
+    // expect(returnedPoJson.body[0].id).toBeDefined()
+    // expect(returnedPoJson.body[4].id[0]).toBe('	To be prayerless is to regard ourselves as autonomous, and to believe, im')
   })
 
   it('8 rush', async () => {
@@ -90,7 +94,7 @@ describe('PO rush', () => {
     F.wf(cwd('data.test/8-rush.json'),returnedPoJson.toString())
 
     expect(returnedPoJson.body[0].str).toBeDefined()
-    expect(JSON.stringify(returnedPoJson.body[4].str)).toBe('[]')
+    expect(returnedPoJson.body[4].str.length).toBe(1)
 
     F.wf(cwd('data.test/8-rush.html'),returnedHtmlTranslated)
     F.wf(cwd('data.test/8-rush-translated.html'),returnedHtml)

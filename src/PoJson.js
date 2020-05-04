@@ -106,9 +106,9 @@ module.exports = class PoJson {
       const splited = i.split('msgid "')
       const comment = splited.shift()
       const msg = splited[0].split('msgstr "')
-      const id = rmStartEmptyLine(rmStrictQuotationLineBreak(msg[0])).substr(2).split('"\n"')
+      const id = rmStartEmptyLine(rmStrictQuotationLineBreak(msg[0])).split('"\n"')
 
-      const str = rmStartEmptyLine(rmQuotationLineBreak(msg[1])).substr(2).split('"\n"')
+      const str = rmStartEmptyLine(rmQuotationLineBreak(msg[1])).split('"\n"')
 
       return {
         id,

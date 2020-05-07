@@ -68,7 +68,7 @@ describe('PoJSON para HTML', () => {
 describe('Generating info', () => {
   jest.resetModules()
   it('Test if all informations are being Created', async () => {
-    expect.assertions(6)
+    expect.assertions(8)
     const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
     const returnedPoJson = new PoJson(jsonS)
     let recievedObjct = returnedPoJson.generateInfo()
@@ -80,6 +80,8 @@ describe('Generating info', () => {
     
     recievedObjct = returnedPoJson.updateInfo()
     expect(recievedObjct).toBeDefined()
+    expect(recievedObjct.i).toBeDefined()
+    expect(recievedObjct.info).toBeDefined()
   })
 })
 

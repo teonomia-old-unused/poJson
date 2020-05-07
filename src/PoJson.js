@@ -112,6 +112,10 @@ module.exports = class PoJson {
     return this
   }
 
+  get i () { return this._info }
+
+  get info () { return this._info }
+
   updateInfo () { return this.generateInfo() }
 
   static fromPo (string) {

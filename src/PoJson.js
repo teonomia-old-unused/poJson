@@ -112,6 +112,8 @@ module.exports = class PoJson {
     return this
   }
 
+  updateInfo () { return this.generateInfo() }
+
   static fromPo (string) {
     const splitedPo = string.split('\n\n')
     const header = splitedPo.shift().split('\n"')

@@ -102,6 +102,11 @@ module.exports = class PoJson {
   static fromPo (string) {
     const splitedPo = string.split('\n\n')
     const header = splitedPo.shift().split('\n"')
+    // IF the last line is Empty it will be droped
+    if (splitedPo[splitedPo.length-1].length === 0){
+      console.log('droped')
+      splitedPo.pop()
+    }
     const body = splitedPo.map(i => {
       const splited = i.split('msgid "')
       const comment = splited.shift()

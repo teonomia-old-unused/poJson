@@ -76,15 +76,52 @@ module.exports = class PoJson {
       return this.toHtml(true)
     }
 
+    this.parseFirstLine = () => {
+      const firstLine = this.body[0]
+      if(firstLine.comment != '##HEADER: HEADER'){ return false }
+      const headerInfo = {contributors:[]}
+      const translatedHeaderInfo = {contributors:[]}
+      try{
+        firstLine.id.filter(line => line.includes(':'))
+        .map(line => {
+          const keyValue = line.split(':')
+          if(keyValue[0] === 'contributor') { 
+            const [ name, email ] = keyValue[1].split('|')
+            headerInfo.contributors.push({name, email}) 
+        } else {
+          headerInfo[keyValue[0]] = keyValue[1]
+        }
+        })    
+        firstLine.str.filter(line => line.includes(':'))
+        .map(line => {
+          const keyValue = line.split(':')
+          if(keyValue[0] === 'contributor') { 
+            const [ name, email ] = keyValue[1].split('|')
+            translatedHeaderInfo.contributors.push({name, email}) 
+          } else {
+            translatedHeaderInfo[keyValue[0]] = keyValue[1]
+          }
+        })
+      }catch(e){
+        console.log(e)
+        return {error:'Header parse error, maybe some information is not correct'}
+      }
+      return {headerInfo, translatedHeaderInfo}
+    }
+
     this.generateInfo = () => {
       const translatedLines = this.body.filter(line=> line.str != '').length
       const totalLines = this.body.length
       const percentageTranslated = (translatedLines/totalLines)*100
-      
+      const firstLineHeader = this.parseFirstLine()
+      if (firstLineHeader) {
+        this.body.shift()
+      }
       this._info = {
         totalLines,
         translatedLines,
-        percentageTranslated
+        percentageTranslated,
+        header: firstLineHeader
       }
       return this
     }

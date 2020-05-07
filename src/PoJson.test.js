@@ -83,6 +83,16 @@ describe('Generating info', () => {
     expect(recievedObjct.i).toBeDefined()
     expect(recievedObjct.info).toBeDefined()
   })
+  it('Test if first line infos are being readed', async () => {
+    expect.assertions(4)
+    const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const jsonS = jsonBuff.toString()
+    const returnedPoJson = new PoJson(jsonS)
+    expect(returnedPoJson.parseFirstLine().headerInfo).toBeDefined()
+    expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].name).toBeDefined()
+    expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].email).toBeDefined()
+    expect(returnedPoJson.parseFirstLine().headerInfo.contributors.length).toBeGreaterThan(1)
+
+  })
 })
 
 describe('PO rush', () => {

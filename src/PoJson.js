@@ -75,6 +75,19 @@ module.exports = class PoJson {
     this.toTranslatedHtml = () => {
       return this.toHtml(true)
     }
+
+    this.generateInfo = () => {
+      const translatedLines = this.body.filter(line=> line.str != '').length
+      const totalLines = this.body.length
+      const percentageTranslated = (translatedLines/totalLines)*100
+      
+      this._info = {
+        totalLines,
+        translatedLines,
+        percentageTranslated
+      }
+      return this
+    }
   }
 
   get json () { return this.toJson() }

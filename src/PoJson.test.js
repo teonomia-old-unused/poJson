@@ -65,6 +65,21 @@ describe('PoJSON para HTML', () => {
   })
 })
 
+describe('Generating info', () => {
+  jest.resetModules()
+  it('Test if all informations are being Created', async () => {
+    expect.assertions(5)
+    const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
+    const returnedPoJson = new PoJson(jsonS)
+    const recievedObjct = returnedPoJson.generateInfo()
+    expect(returnedPoJson._info).toBeDefined()
+    expect(returnedPoJson._info.translatedLines).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
+    expect(returnedPoJson._info.totalLines).toBeGreaterThan(0)
+    expect(returnedPoJson._info.percentageTranslated).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
+    expect(recievedObjct).toBeDefined()
+  })
+})
+
 describe('PO rush', () => {
   //jest.resetModules()
   it('4 rush', async () => {

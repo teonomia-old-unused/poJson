@@ -66,7 +66,9 @@ the poJson pather is simple:
 
 ## property _info 
 More info about (here)['/info.header.md']
-###schema:
+
+### schema:
+
 ```js
 {
   _info:{

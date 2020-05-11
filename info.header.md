@@ -8,18 +8,24 @@ pojson = {
     translatedLines: 5, // Total number of lines translated 
     percentageTranslated: 50, // Percentage of translated lines in the file
     header: { // This property contains the informations in the first
-      title: "Title of the article to be translated",
-      slug: "tile-of-the-article-to-be-translated",
-      "seo-title": "Improved Title",
-      "seo-slug": "improved-title",
-      "source-name": "Chalcedon Foundation",
-      "source-article-url": "http://chalcedon.edu/",
-      tags: ["rushdoony", "r.j.rushdoony", "chalcedon", "thenonomy", "reformed faith"],
-      contributors: [
-        { name: "Alvaro Separovich", email: "alvasepro@gmail.com"},
-        { name: "noOne", email: "noEmail@no.com"}
-        ],
-      translated: TRUE
+      id: {
+        title: "Title of the article to be translated",
+        slug: "tile-of-the-article-to-be-translated",
+        "seo-title": "Improved Title",
+        "seo-slug": "improved-title",
+        "source-name": "Chalcedon Foundation",
+        "source-article-url": "http://chalcedon.edu/",
+        tags: ["rushdoony", "r.j.rushdoony", "chalcedon", "thenonomy", "reformed faith"],
+        contributors: [
+          { name: "Alvaro Separovich", email: "alvasepro@gmail.com"},
+          { name: "noOne", email: "noEmail@no.com"}
+          ],
+        translated: TRUE
+      },
+      str: {
+        title: "Titulo do artigo que foi traduzido",
+        ...
+      }
   }
 }
 ```
@@ -50,7 +56,8 @@ msgid "title: Title of the article to be translated\n"
 "contributor: noOne|noEmail@no.com\n"
 "translated: TRUE\n"
 ""
-msgstr ""
+msgstr "Titulo do artigo que foi traduzido"
+...
 
 ##HTML: <p >{{#c}}</p>
 msgid "text in english"

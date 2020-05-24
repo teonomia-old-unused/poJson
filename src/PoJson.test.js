@@ -142,15 +142,23 @@ describe('Header well created', () => {
     F.wf(cwd('data.test/bodyHeader/jsonParsed.po'),returnedPoJson.po)
     expect(returnedPoJson.body[0].id).toBeDefined()
   })
-  
+
   it('test Header 2', async () => {
     expect.assertions(1)
-    const poBuff = await F.rf(cwd('data.test/bodyHeader/jsonParsed.po')); const po = poBuff.toString()
-    const returnedPoJson = PoJson.fromPo(po)
+    const poBuff = await F.rf(cwd('data.test/bodyHeader/jsonParsed_copy.po')); const po = poBuff.toString()
+    //console.log(po)
+    let returnedPoJson
+    try{
+      returnedPoJson = PoJson.fromPo(po)
+      F.wf(cwd('data.test/bodyHeader/jsonParsed_to_json.json'),returnedPoJson.string)
+    } catch(e){
+      console.log(e)
+      F.wf(cwd('data.test/bodyHeader/jsonParsed_to_json.json'),'error')
+    }
+    
     // console.log(returnedPoJson.body[0])
     // console.log(returnedPoJson.body[1])
     // console.log(returnedPoJson.body[2])
-    F.wf(cwd('data.test/bodyHeader/jsonParsed_to_json.json'),returnedPoJson.string)
     expect(returnedPoJson.body[0].id).toBeDefined()
   })
 

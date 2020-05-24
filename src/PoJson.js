@@ -1,5 +1,6 @@
 const { rmStrictQuotationLineBreak, rmQuotationLineBreak, rmStartEmptyLine, rmLineBreak, splitInLinesByCaracters } = require('./utils')
 const HTML = require('node-html-parser')
+const j2y = require('js-yaml')
 
 module.exports = class PoJson {
   constructor(body, header) {
@@ -24,24 +25,28 @@ module.exports = class PoJson {
       this.body = body
     } else { return {erro: 'the body param need to be array or Json String'}}
 
+    // PARSERS =============================================================
+    // =====================================================================
     this.toJson = () => {
       return { header: this.header, body: this.body }
     }
-
     this.toString = () => {
       return JSON.stringify(this.toJson())
     }
-
     this.toPo = () => {
         function sanitizeLineBreak(text = '') {
           const sanitized = text.replace(/\n/g, '\\n"\n"')
           return sanitized.replace()
         }
-        return this.header.join('\n"') +'\n\n'+ this.body.map(line => {
-          return `${line.comment}\nmsgid "${line.id.map(i=>splitInLinesByCaracters(sanitizeLineBreak(i)).join('"\n"'))}"\nmsgstr "${line.str.map(i=>sanitizeLineBreak(i))}"\n\n`
+        let summary
+        if (this.body[0].comment === '##HEADER: HEADER'){
+          summary = `\n\n${this.body[0].comment}\nmsgid "${j2y.safeDump(this.body[0].id).split('\n').join('\\n"\n"')}"\nmsgstr "${this.body[0].str === ''?'':j2y.safeDump(this.body[0].str)}"`
+          this.body.shift()
+        }
+        return this.header.join('\n"') + summary + '\n\n'+ this.body.map(line => {
+          return `${line.comment}\nmsgid "${line.id.map(i=>splitInLinesByCaracters(i)).join('"\n"')}"\nmsgstr "${line.str.map(i=>sanitizeLineBreak(i)).join('"\n"')}"\n\n`
         }).join('')
     }
-
     this.toHtml = (translated = false) => {
 
       let content
@@ -71,44 +76,25 @@ module.exports = class PoJson {
 
       return `<HTML>\n${article}\n</HTML>`
     }
-
     this.toTranslatedHtml = () => {
       return this.toHtml(true)
     }
 
+
     this.parseFirstLine = () => {
       const firstLine = this.body[0]
       if(firstLine.comment != '##HEADER: HEADER'){ return false }
-      const headerInfo = {contributors:[]}
-      const translatedHeaderInfo = {contributors:[]}
+      const id = {contributors:[]}
+      const str = {contributors:[]}
       try{
-        firstLine.id.filter(line => line.includes(':'))
-        .map(line => {
-          const keyValue = line.split(':')
-          if(keyValue[0] === 'contributor') { 
-            const [ name, email ] = keyValue[1].split('|')
-            headerInfo.contributors.push({name, email}) 
-        } else {
-          headerInfo[keyValue[0]] = keyValue[1]
-        }
-        })    
-        firstLine.str.filter(line => line.includes(':'))
-        .map(line => {
-          const keyValue = line.split(':')
-          if(keyValue[0] === 'contributor') { 
-            const [ name, email ] = keyValue[1].split('|')
-            translatedHeaderInfo.contributors.push({name, email}) 
-          } else {
-            translatedHeaderInfo[keyValue[0]] = keyValue[1]
-          }
-        })
+        
+        
       }catch(e){
         console.log(e)
         return {error:'Header parse error, maybe some information is not correct'}
       }
-      return {headerInfo, translatedHeaderInfo}
+      return {id, str}
     }
-
     this.generateInfo = () => {
       const translatedLines = this.body.filter(line=> line.str != '').length
       const totalLines = this.body.length
@@ -179,6 +165,7 @@ module.exports = class PoJson {
         comment
       }
     })
+    // console.log(body)
   return new PoJson(body, header)
   }
 

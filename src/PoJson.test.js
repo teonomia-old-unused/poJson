@@ -65,35 +65,35 @@ describe('PoJSON para HTML', () => {
   })
 })
 
-describe('Generating info', () => {
-  jest.resetModules()
-  it('Test if all informations are being Created', async () => {
-    expect.assertions(8)
-    const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
-    const returnedPoJson = new PoJson(jsonS)
-    let recievedObjct = returnedPoJson.generateInfo()
-    expect(returnedPoJson._info).toBeDefined()
-    expect(returnedPoJson._info.translatedLines).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
-    expect(returnedPoJson._info.totalLines).toBeGreaterThan(0)
-    expect(returnedPoJson._info.percentageTranslated).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
-    expect(recievedObjct).toBeDefined()
+// describe('Generating info', () => {
+//   jest.resetModules()
+//   it('Test if all informations are being Created', async () => {
+//     expect.assertions(8)
+//     const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
+//     const returnedPoJson = new PoJson(jsonS)
+//     let recievedObjct = returnedPoJson.generateInfo()
+//     expect(returnedPoJson._info).toBeDefined()
+//     expect(returnedPoJson._info.translatedLines).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
+//     expect(returnedPoJson._info.totalLines).toBeGreaterThan(0)
+//     expect(returnedPoJson._info.percentageTranslated).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
+//     expect(recievedObjct).toBeDefined()
     
-    recievedObjct = returnedPoJson.updateInfo()
-    expect(recievedObjct).toBeDefined()
-    expect(recievedObjct.i).toBeDefined()
-    expect(recievedObjct.info).toBeDefined()
-  })
-  it('Test if first line infos are being readed', async () => {
-    expect.assertions(4)
-    const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const jsonS = jsonBuff.toString()
-    const returnedPoJson = new PoJson(jsonS)
-    expect(returnedPoJson.parseFirstLine().headerInfo).toBeDefined()
-    expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].name).toBeDefined()
-    expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].email).toBeDefined()
-    expect(returnedPoJson.parseFirstLine().headerInfo.contributors.length).toBeGreaterThan(1)
+//     recievedObjct = returnedPoJson.updateInfo()
+//     expect(recievedObjct).toBeDefined()
+//     expect(recievedObjct.i).toBeDefined()
+//     expect(recievedObjct.info).toBeDefined()
+//   })
+//   it('Test if first line infos are being readed', async () => {
+//     expect.assertions(4)
+//     const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const jsonS = jsonBuff.toString()
+//     const returnedPoJson = new PoJson(jsonS)
+//     expect(returnedPoJson.parseFirstLine().headerInfo).toBeDefined()
+//     expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].name).toBeDefined()
+//     expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].email).toBeDefined()
+//     expect(returnedPoJson.parseFirstLine().headerInfo.contributors.length).toBeGreaterThan(1)
 
-  })
-})
+//   })
+// })
 
 describe('PO rush', () => {
   //jest.resetModules()
@@ -130,4 +130,28 @@ describe('PO rush', () => {
     F.wf(cwd('data.test/8-rush-translated.html'),returnedHtml)
 
   })
+})
+
+describe('Header well created', () => {
+  //jest.resetModules()
+  it('test Header 1', async () => {
+    expect.assertions(1)
+    const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const json = jsonBuff.toString()
+    const returnedPoJson = new PoJson(json)
+    // console.log(returnedPoJson.body[2])
+    F.wf(cwd('data.test/bodyHeader/jsonParsed.po'),returnedPoJson.po)
+    expect(returnedPoJson.body[0].id).toBeDefined()
+  })
+  
+  it('test Header 2', async () => {
+    expect.assertions(1)
+    const poBuff = await F.rf(cwd('data.test/bodyHeader/jsonParsed.po')); const po = poBuff.toString()
+    const returnedPoJson = PoJson.fromPo(po)
+    // console.log(returnedPoJson.body[0])
+    // console.log(returnedPoJson.body[1])
+    // console.log(returnedPoJson.body[2])
+    F.wf(cwd('data.test/bodyHeader/jsonParsed_to_json.json'),returnedPoJson.string)
+    expect(returnedPoJson.body[0].id).toBeDefined()
+  })
+
 })

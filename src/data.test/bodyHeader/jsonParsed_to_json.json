@@ -14,19 +14,25 @@
     ],
     "body": [
         {
-            "id": { 
-                "title": "Title of the article to be translated",
-                "slug": "tile-of-the-article-to-be-translated",
-                "seo-title": "Improved Title",
-                "seo-slug": "improved-title",
-                "source-name": "Chalcedon Foundation",
-                "source-article-url": "http://chalcedon.edu/",
-                "tags":
-                    "rushdoony, r.j.rushdoony, chalcedon, thenonomy, reformed faith, rushdoony asudhausdhau shdaus hdaus hdaus hdaush d, r.j.rushdoony, chalcedon, thenonomy, reformed faith",
-                "contributor": "noOne|noEmail@no.com",
-                "translated": "TRUE" },
-            "str": "",
-            "comment": "##HEADER: HEADER"
+            "id": [
+                "title: Title of the article to be translated\\n",
+                "slug: tile-of-the-article-to-be-translated\\n",
+                "seo-title: Improved Title\\n",
+                "seo-slug: improved-title\\n",
+                "source-name: Chalcedon Foundation\\n",
+                "source-article-url: 'http://chalcedon.edu/'\\n",
+                "tags: >-\\n",
+                "  rushdoony, r.j.rushdoony, chalcedon, thenonomy, reformed faith, rushdoony\\n",
+                "  asudhausdhau shdaus hdaus hdaus hdaush d, r.j.rushdoony, chalcedon, thenonomy,\\n",
+                "  reformed faith\\n",
+                "contributor: noOne|noEmail@no.com\\n",
+                "translated: 'TRUE'\\n",
+                ""
+            ],
+            "str": [
+                ""
+            ],
+            "comment": "##HEADER: HEADER\n"
         },
         {
             "id": [
@@ -43,7 +49,7 @@
                 "iaushdiaus huas cd iojads ojiasd ojiads joisad joisad jiosad jiaoij adsiojas d",
                 "JJJJJJJJJJJJJJJJJJ AHAHAHAHAHAH."
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -58,7 +64,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -72,7 +78,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -84,7 +90,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -102,7 +108,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -113,7 +119,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -123,7 +129,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -136,7 +142,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -149,7 +155,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -161,7 +167,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -176,7 +182,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -188,7 +194,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -197,7 +203,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -219,7 +225,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <p >{{#c}}</p>"
+            "comment": "##HTML: <p >{{#c}}</p>\n"
         },
         {
             "id": [
@@ -242,7 +248,7 @@
             "str": [
                 ""
             ],
-            "comment": "##HTML: <div class=\"detail-authorsListing\">{{#c}}</div>"
+            "comment": "##HTML: <div class=\"detail-authorsListing\">{{#c}}</div>\n"
         }
     ]
 }

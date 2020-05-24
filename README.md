@@ -75,13 +75,8 @@ More info about [here](info.header.md)
     totalLines, // total number of lines in this file
     translatedLines, // Total number of lines translated 
     percentageTranslated, // Percentage of translated lines in the file
-    header: firstLineHeader // This property contains the informations in the first
-                            // line of the file, if present
+    haveHeader // Boolean if there is a header in the first line of pojson's body
   }
-}
-// Content of info header and its expected values:
-_info.header = {
-
 }
 ```
 # Usage:

@@ -1,31 +1,31 @@
+By this time, the info from where it was retireved,the author, the colaborators... will be mantained in the first line of poJson body.
+To know if this ispresent on the file that you are handling you can call ```myPoJson.generateInfo().i.haveHeader```
+
 # .POJSON
 ```js
 pojson = {
-  header:{},
-  body: {},
+  header:[{...}, {...}, ...],
+  body: [{
+    id: { 
+      title: "Title of the article to be translated",
+      slug: "tile-of-the-article-to-be-translated",
+      "seo-title": "Improved Title",
+      "seo-slug": "improved-title",
+      "source-name": "Chalcedon Foundation",
+      "source-article-url": "http://chalcedon.edu/",
+      tags:
+        "rushdoony, r.j.rushdoony, chalcedon, thenonomy, reformed faith, rushdoony asudhausdhau shdaus hdaus hdaus hdaush d, r.j.rushdoony, chalcedon, thenonomy, reformed faith",
+      contributor: "noOne|noEmail@no.com",
+      translated: "TRUE" },
+    str: {},
+    comment: '##HEADER: HEADER'
+  },
+  {...}, ...],
   _info:{
     totalLines: 10, // total number of lines in this file
     translatedLines: 5, // Total number of lines translated 
     percentageTranslated: 50, // Percentage of translated lines in the file
-    header: { // This property contains the informations in the first
-      id: {
-        title: "Title of the article to be translated",
-        slug: "tile-of-the-article-to-be-translated",
-        "seo-title": "Improved Title",
-        "seo-slug": "improved-title",
-        "source-name": "Chalcedon Foundation",
-        "source-article-url": "http://chalcedon.edu/",
-        tags: ["rushdoony", "r.j.rushdoony", "chalcedon", "thenonomy", "reformed faith"],
-        contributors: [
-          { name: "Alvaro Separovich", email: "alvasepro@gmail.com"},
-          { name: "noOne", email: "noEmail@no.com"}
-          ],
-        translated: TRUE
-      },
-      str: {
-        title: "Titulo do artigo que foi traduzido",
-        ...
-      }
+    haveHeader: true // Boolean, if there is a header the in body
   }
 }
 ```

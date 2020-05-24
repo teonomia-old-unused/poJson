@@ -24,6 +24,9 @@ module.exports = class PoJson {
       ]
       this.body = body
     } else { return {erro: 'the body param need to be array or Json String'}}
+    this.dict = {
+      bodyHeader: '##HEADER: HEADER'
+    }
 
     // PARSERS =============================================================
     // =====================================================================
@@ -39,7 +42,7 @@ module.exports = class PoJson {
           return sanitized.replace()
         }
         let summary
-        if (this.body[0].comment === '##HEADER: HEADER'){
+        if (this.body[0].comment === this.dict.bodyHeader){
           summary = `\n\n${this.body[0].comment}\nmsgid "${j2y.safeDump(this.body[0].id).split('\n').join('\\n"\n"')}"\nmsgstr "${this.body[0].str === ''?'':j2y.safeDump(this.body[0].str)}"`
           this.body.shift()
         }
@@ -79,35 +82,16 @@ module.exports = class PoJson {
     this.toTranslatedHtml = () => {
       return this.toHtml(true)
     }
-
-
-    this.parseFirstLine = () => {
-      const firstLine = this.body[0]
-      if(firstLine.comment != '##HEADER: HEADER'){ return false }
-      const id = {contributors:[]}
-      const str = {contributors:[]}
-      try{
-        
-        
-      }catch(e){
-        console.log(e)
-        return {error:'Header parse error, maybe some information is not correct'}
-      }
-      return {id, str}
-    }
     this.generateInfo = () => {
       const translatedLines = this.body.filter(line=> line.str != '').length
       const totalLines = this.body.length
       const percentageTranslated = (translatedLines/totalLines)*100
-      const firstLineHeader = this.parseFirstLine()
-      if (firstLineHeader) {
-        this.body.shift()
-      }
+      const haveHeader = this.body[0].comment === this.dict.bodyHeader || false
       this._info = {
         totalLines,
         translatedLines,
         percentageTranslated,
-        header: firstLineHeader
+        haveHeader
       }
       return this
     }

@@ -158,7 +158,7 @@ module.exports = class PoJson {
 
     const body = content.childNodes[0].childNodes.map(node => {
       return {
-        id: [node.rawText.replace(/(\t|\n)/g, '').trim()],
+        id: splitInLinesByCaracters(node.rawText.replace(/(\t|\n)/g, '').trim()),
         str: [''],
         comment: `##HTML: <${node.tagName} ${node.rawAttrs}>{{#c}}</${node.tagName}>`
       }

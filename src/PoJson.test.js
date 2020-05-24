@@ -35,7 +35,7 @@ describe('PoJSON para PO', () => {
 
 describe('HTML para PoJSON', () => {
   jest.resetModules()
-  it('modelo da estrutura do poJson', async () => {
+  it('Modelo da estrutura html para poJson', async () => {
     expect.assertions(4)
     const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
     const returnedPoJson = PoJson.fromHtml(htmlS)
@@ -46,6 +46,16 @@ describe('HTML para PoJSON', () => {
     expect(returnedPoJson.body[0].comment).toBeDefined()
     expect(returnedPoJson.body[0].comment).toMatch(/^##HTML:/g)
   })
+
+  it('Verifica se arquivo está sendo criado com quebra de linas', async ()=>{
+    expect.assertions(2)
+    const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
+    const returnedPoJson = PoJson.fromHtml(htmlS)
+    expect(returnedPoJson.body[0].id).toBeDefined()
+    // Verify if the archive is breaking te line (there is a bug that fromHTML doesn't create mutiple lines )
+    expect(returnedPoJson.body[1].id.length).toBeGreaterThan(1)
+  })
+  
 })
 
 describe('PoJSON para HTML', () => {
@@ -65,35 +75,22 @@ describe('PoJSON para HTML', () => {
   })
 })
 
-// describe('Generating info', () => {
-//   jest.resetModules()
-//   it('Test if all informations are being Created', async () => {
-//     expect.assertions(8)
-//     const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
-//     const returnedPoJson = new PoJson(jsonS)
-//     let recievedObjct = returnedPoJson.generateInfo()
-//     expect(returnedPoJson._info).toBeDefined()
-//     expect(returnedPoJson._info.translatedLines).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
-//     expect(returnedPoJson._info.totalLines).toBeGreaterThan(0)
-//     expect(returnedPoJson._info.percentageTranslated).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
-//     expect(recievedObjct).toBeDefined()
-    
-//     recievedObjct = returnedPoJson.updateInfo()
-//     expect(recievedObjct).toBeDefined()
-//     expect(recievedObjct.i).toBeDefined()
-//     expect(recievedObjct.info).toBeDefined()
-//   })
-//   it('Test if first line infos are being readed', async () => {
-//     expect.assertions(4)
-//     const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const jsonS = jsonBuff.toString()
-//     const returnedPoJson = new PoJson(jsonS)
-//     expect(returnedPoJson.parseFirstLine().headerInfo).toBeDefined()
-//     expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].name).toBeDefined()
-//     expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].email).toBeDefined()
-//     expect(returnedPoJson.parseFirstLine().headerInfo.contributors.length).toBeGreaterThan(1)
-
-//   })
-// })
+describe('Generating info', () => {
+  jest.resetModules()
+  it('Test if all informations are being Created', async () => {
+    expect.assertions(7)
+    const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
+    const returnedPoJson = new PoJson(jsonS)
+    let recievedObjct = returnedPoJson.generateInfo()
+    expect(returnedPoJson._info).toBeDefined()
+    expect(returnedPoJson._info.translatedLines).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
+    expect(returnedPoJson._info.totalLines).toBeGreaterThan(0)
+    expect(returnedPoJson._info.percentageTranslated).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
+    expect(recievedObjct).toBeDefined()
+    expect(recievedObjct.i).toBeDefined()
+    expect(recievedObjct.info).toBeDefined()
+  })
+})
 
 describe('PO rush', () => {
   //jest.resetModules()
@@ -126,8 +123,8 @@ describe('PO rush', () => {
     expect(returnedPoJson.body[0].str).toBeDefined()
     expect(returnedPoJson.body[4].str.length).toBe(1)
 
-    F.wf(cwd('data.test/8-rush.html'),returnedHtmlTranslated)
-    F.wf(cwd('data.test/8-rush-translated.html'),returnedHtml)
+    F.wf(cwd('data.test/8-rush-translated.html'),returnedHtmlTranslated)
+    F.wf(cwd('data.test/8-rush.html'),returnedHtml)
 
   })
 })

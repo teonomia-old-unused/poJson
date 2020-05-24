@@ -13,7 +13,7 @@ msgstr ""
 
 ##HTML: <header >{{#c}}</header>
 msgid "8 Areas of ReconstructionBy R. J. RushdoonyJanuary 26, 2015"
-msgstr ""
+msgstr "Translated Line"
 
 ##HTML: <p >{{#c}}</p>
 msgid "\n"

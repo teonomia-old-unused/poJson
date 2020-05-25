@@ -54,7 +54,8 @@ the poJson pather is simple:
     {
       id:[""], // array of string. the msgid in .po file
       str: [""], // array of string. the msgstr in .po file
-      comment: "" // string. the comments in .po file
+      comment: "", // string. the comments in .po file
+      _info: {...} // object. informations about the pojson
       /**
        * If the Json file is transformed from HTML, the
        * comment will contain only HTML informations
@@ -63,6 +64,21 @@ the poJson pather is simple:
 }
 ```
 
+## property _info 
+More info about [here](info.header.md)
+
+### schema:
+
+```js
+{
+  _info:{
+    totalLines, // total number of lines in this file
+    translatedLines, // Total number of lines translated 
+    percentageTranslated, // Percentage of translated lines in the file
+    haveHeader // Boolean if there is a header in the first line of pojson's body
+  }
+}
+```
 # Usage:
 We provide a PoJson Object.
 how to install:

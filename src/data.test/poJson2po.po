@@ -10,7 +10,7 @@ msgstr ""
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
 "Last-Translator: \n"
-"Language-Team: \n"
+"Language-Team: \n"undefined
 
 #. Please don't change the name of the application
 #: /app/modules/views
@@ -20,6 +20,8 @@ msgstr "Lista TODO"
 
 #: /app/modules/views
 
-msgid "We were unable to sign you up.,Please correct the marked fields."
-msgstr "Nous n'avons pas pu vous inscrire.,Veuillez corriger les champs marqués."
+msgid "We were unable to sign you up."
+"Please correct the marked fields."
+msgstr "Nous n'avons pas pu vous inscrire."
+"Veuillez corriger les champs marqués."
 

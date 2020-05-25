@@ -13,17 +13,26 @@ describe('PO para JSON', () => {
     const returnedPoJson = PoJson.fromPo(poPo)
     F.wf(cwd('data.test/po2poJson.json'),returnedPoJson.toString)
 
+    expect(returnedPoJson.body[1].id).toBeDefined()
+    expect(returnedPoJson.body[1].id[0]).toBeDefined()
+    expect(returnedPoJson.body[1].str).toBeDefined()
+    expect(returnedPoJson.body[1].str[0]).toBeDefined()
+    expect(returnedPoJson.body[1].comment).toBeDefined()
+  })
+  it('Modelo de body com header id', async () => {
+    expect.assertions(4)
+    const poPoBuff = await F.rf(cwd('data.test/bodyHeader/jsonParsed_copy.po')); const poPo = poPoBuff.toString()
+    const returnedPoJson = PoJson.fromPo(poPo)
     expect(returnedPoJson.body[0].id).toBeDefined()
-    expect(returnedPoJson.body[0].id[0]).toBeDefined()
+    expect(Array.isArray(returnedPoJson.body[0].id.title)).toBeDefined()
     expect(returnedPoJson.body[0].str).toBeDefined()
-    expect(returnedPoJson.body[0].str[0]).toBeDefined()
     expect(returnedPoJson.body[0].comment).toBeDefined()
   })
 })
 
 describe('PoJSON para PO', () => {
   jest.resetModules()
-  it('modelo da estrutura do po', async () => {
+  it('Modelo da estrutura do po', async () => {
     expect.assertions(1)
     const poJsonBuff = await F.rf(cwd('data.test/poJson.json')); const poJsonS = poJsonBuff.toString()
     const returnedPo = new PoJson(poJsonS).po
@@ -31,11 +40,19 @@ describe('PoJSON para PO', () => {
     const splitedReturnedPo = returnedPo.split('\n\n')
     expect(splitedReturnedPo[1]).toBeDefined()
   })
+  it('PO com body Header', async () => {
+    expect.assertions(1)
+    const poJsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const poJsonS = poJsonBuff.toString()
+    const returnedPo = new PoJson(poJsonS).po
+    F.wf(cwd('data.test/bodyHeader/json_to_po.po'),returnedPo)
+    const poJsonFromPo = PoJson.fromPo(returnedPo)
+    expect(poJsonFromPo.body[0].id.title).toBeDefined()
+  })
 })
 
 describe('HTML para PoJSON', () => {
   jest.resetModules()
-  it('modelo da estrutura do poJson', async () => {
+  it('Modelo da estrutura html para poJson', async () => {
     expect.assertions(4)
     const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
     const returnedPoJson = PoJson.fromHtml(htmlS)
@@ -46,6 +63,16 @@ describe('HTML para PoJSON', () => {
     expect(returnedPoJson.body[0].comment).toBeDefined()
     expect(returnedPoJson.body[0].comment).toMatch(/^##HTML:/g)
   })
+
+  it('Verifica se arquivo está sendo criado com quebra de linas', async ()=>{
+    expect.assertions(2)
+    const htmlBuff = await F.rf(cwd('data.test/article.html')); const htmlS = htmlBuff.toString()
+    const returnedPoJson = PoJson.fromHtml(htmlS)
+    expect(returnedPoJson.body[0].id).toBeDefined()
+    // Verify if the archive is breaking te line (there is a bug that fromHTML doesn't create mutiple lines )
+    expect(returnedPoJson.body[1].id.length).toBeGreaterThan(1)
+  })
+  
 })
 
 describe('PoJSON para HTML', () => {
@@ -68,7 +95,7 @@ describe('PoJSON para HTML', () => {
 describe('Generating info', () => {
   jest.resetModules()
   it('Test if all informations are being Created', async () => {
-    expect.assertions(8)
+    expect.assertions(7)
     const jsonBuff = await F.rf(cwd('data.test/8-rush.json')); const jsonS = jsonBuff.toString()
     const returnedPoJson = new PoJson(jsonS)
     let recievedObjct = returnedPoJson.generateInfo()
@@ -77,21 +104,8 @@ describe('Generating info', () => {
     expect(returnedPoJson._info.totalLines).toBeGreaterThan(0)
     expect(returnedPoJson._info.percentageTranslated).toBeGreaterThan(0) // Expect a file with minimum of 1 line translated
     expect(recievedObjct).toBeDefined()
-    
-    recievedObjct = returnedPoJson.updateInfo()
-    expect(recievedObjct).toBeDefined()
     expect(recievedObjct.i).toBeDefined()
     expect(recievedObjct.info).toBeDefined()
-  })
-  it('Test if first line infos are being readed', async () => {
-    expect.assertions(4)
-    const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const jsonS = jsonBuff.toString()
-    const returnedPoJson = new PoJson(jsonS)
-    expect(returnedPoJson.parseFirstLine().headerInfo).toBeDefined()
-    expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].name).toBeDefined()
-    expect(returnedPoJson.parseFirstLine().headerInfo.contributors[0].email).toBeDefined()
-    expect(returnedPoJson.parseFirstLine().headerInfo.contributors.length).toBeGreaterThan(1)
-
   })
 })
 
@@ -113,7 +127,7 @@ describe('PO rush', () => {
     // expect(returnedPoJson.body[4].id[0]).toBe('	To be prayerless is to regard ourselves as autonomous, and to believe, im')
   })
 
-  it('8 rush', async () => {
+  it('8 test rushdoony files ', async () => {
     expect.assertions(2)
     const poPoBuff = await F.rf(cwd('data.test/8-rush.po')); const poPo = poPoBuff.toString()
     const returnedPoJson = PoJson.fromPo(poPo)
@@ -126,8 +140,36 @@ describe('PO rush', () => {
     expect(returnedPoJson.body[0].str).toBeDefined()
     expect(returnedPoJson.body[4].str.length).toBe(1)
 
-    F.wf(cwd('data.test/8-rush.html'),returnedHtmlTranslated)
-    F.wf(cwd('data.test/8-rush-translated.html'),returnedHtml)
+    F.wf(cwd('data.test/8-rush-translated.html'),returnedHtmlTranslated)
+    F.wf(cwd('data.test/8-rush.html'),returnedHtml)
 
   })
+})
+
+describe('Header well created', () => {
+  //jest.resetModules()
+  it('test Header 1', async () => {
+    expect.assertions(1)
+    const jsonBuff = await F.rf(cwd('data.test/bodyHeader/json.json')); const json = jsonBuff.toString()
+    const returnedPoJson = new PoJson(json)
+    // console.log(returnedPoJson.body[2])
+    F.wf(cwd('data.test/bodyHeader/jsonParsed.po'),returnedPoJson.po)
+    expect(returnedPoJson.body[0].id).toBeDefined()
+  })
+
+  it('test Header 2', async () => {
+    expect.assertions(1)
+    const poBuff = await F.rf(cwd('data.test/bodyHeader/jsonParsed_copy.po')); const po = poBuff.toString()
+    //console.log(po)
+    let returnedPoJson
+    try{
+      returnedPoJson = PoJson.fromPo(po)
+      F.wf(cwd('data.test/bodyHeader/jsonParsed_to_json.json'),returnedPoJson.string)
+    } catch(e){
+      console.log(e)
+      F.wf(cwd('data.test/bodyHeader/jsonParsed_to_json.json'),'error')
+    }
+    expect(returnedPoJson.body[0].id).toBeDefined()
+  })
+
 })

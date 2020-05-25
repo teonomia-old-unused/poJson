@@ -5,13 +5,14 @@
   "license": "GPL",
   "scripts": {
     "test": "jest",
-    "preinstall":"echo '\u001b[41;1m PLEASE USE NODE VERSION 10.18 BEFORE INSTALLING \u001b[0m'",
-    "postinstall":"echo '\u001b[41;1m PLEASE USE NODE VERSION 10.18 BEFORE INSTALLING \u001b[0m'"
+    "preinstall": "echo '\u001b[41;1m PLEASE USE NODE VERSION 10.18 BEFORE INSTALLING \u001b[0m'",
+    "postinstall": "echo '\u001b[41;1m PLEASE USE NODE VERSION 10.18 BEFORE INSTALLING \u001b[0m'"
   },
   "devDependencies": {
     "jest": "^25.3.0"
   },
   "dependencies": {
+    "js-yaml": "^3.14.0",
     "node-html-parser": "^1.2.16"
   }
 }

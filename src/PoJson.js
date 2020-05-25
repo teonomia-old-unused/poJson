@@ -130,7 +130,7 @@ module.exports = class PoJson {
     const header = splitedPo.shift().split('\n"')
     // IF the last line is Empty it will be droped
     if (splitedPo[splitedPo.length-1].length === 0){
-      console.log('droped')
+      // console.log('droped')
       splitedPo.pop()
     }
     const body = splitedPo.map(i => {

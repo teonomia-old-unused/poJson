@@ -149,8 +149,12 @@ module.exports = class PoJson {
         comment
       }
     })
+    if(body[0].comment.trim() === '##HEADER: HEADER') {
+      body[0].id = j2y.safeLoad(body[0].id.join('\n').replace(/\\n/g, ''))
+      body[0].str = j2y.safeLoad(body[0].str.join('\n').replace(/\\n/g, '')) || {}
+    }
     // console.log(body)
-  return new PoJson(body, header)
+    return new PoJson(body, header)
   }
 
   static fromHtml (string) {
